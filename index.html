@@ -10,8 +10,8 @@
 
   <body>
     <main>
-      <details id="reference-editor">
-        <summary>Lisää viite</summary>
+      <div id="reference-editor">
+        <h1>Lisää viite</h1>
 
         <form id="reference-form" aria-label="Lisää viite">
           <p>
@@ -41,6 +41,7 @@
               name="year"
               type="number"
               min="1"
+              value="2000"
               max="9999"
               step="1"
               required
@@ -52,7 +53,7 @@
         </form>
 
         <p id="message" role="status" aria-live="polite"></p>
-      </details>
+      </div>
     </main>
   </body>
 </html>

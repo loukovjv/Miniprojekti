@@ -1,152 +1,150 @@
 :root {
-    --bg-page: #f4f6f9;
-    --bg-card: #ffffff;
-    --bg-subtle: #f8fafc;
-    --text-main: #1e293b;
-    --text-muted: #475569;
-    --border-color: #cbd5e1;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --radius: 10px;
-    }
+  --bg-page: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+  --radius: 10px;
+}
 
-    * {
-    box-sizing: border-box;
-    }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-    body {
-    margin: 0;
-    padding: 2rem 1rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg-page);
-    color: var(--text-main);
-    line-height: 1.5;
-    }
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+}
 
-    main {
-    max-width: 960px;
-    margin: 0 auto;
-    }
+main {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-    h3 {
-    margin: 0 0 1rem;
-    font-size: 1.35rem;
-    font-weight: 600;
-    }
+#reference-editor {
+  width: 50vw;
+  min-width: 320px;
+  max-width: 640px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: 0 12px 28px -18px rgba(15, 23, 42, 0.25);
+}
 
-    #reference-form {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    width: 50vw;
-    padding: 1.5rem;
-    }
+#reference-editor h1 {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
 
-    fieldset {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    background-color: var(--bg-subtle);
-    padding: 1.15rem 1.25rem 1.35rem;
-    margin: 0 0 1.25rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-    }
+#reference-form p {
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
 
-    legend {
-    padding: 0 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    }
+#reference-form label {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
 
-    label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-main);
-    margin-top: 0.4rem;
-    }
+#reference-form input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.975rem;
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
 
-    label:first-of-type {
-    margin-top: 0;
-    }
+#reference-form input:hover {
+  border-color: #94a3b8;
+}
 
-    input {
+#reference-form input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+#reference-form input[type="number"] {
+  max-width: 180px;
+}
+
+#reference-form button {
+  margin-top: 0.5rem;
+  margin-right: 0.6rem;
+  padding: 0.6rem 1.15rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#reference-form button[type="submit"] {
+  color: #ffffff;
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+#reference-form button[type="submit"]:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+#reference-form button[type="reset"] {
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+#reference-form button[type="reset"]:hover {
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  border-color: #94a3b8;
+}
+
+#reference-form button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+#message {
+  margin: 1rem 0 0;
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+#message:not(:empty) {
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+@media (max-width: 768px) {
+  #reference-editor {
     width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;;
-    font-family: inherit;
-    color: var(--text-main);
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    input:hover {
-    border-color: #94a3b8;
-    }
-
-    input:focus-visible {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
-    }
-
-    input[type="number"] {
-    max-width: 180px;
-    }
-
-    .form-actions {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-    }
-
-    button {
-    padding: 0.6rem 1.15rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    font-family: inherit;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
-    }
-
-    button:active {
-    transform: translateY(1px);
-    }
-
-    button[type="submit"] {
-    background-color: var(--accent);
-    color: white;
-    border: 1px solid var(--accent);
-    }
-
-    button[type="submit"]:hover {
-    background-color: var(--accent-hover);
-    border-color: var(--accent-hover);
-    }
-
-    button[type="reset"] {
-    background-color: var(--bg-card);
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    }
-
-    button[type="reset"]:hover {
-    background-color: var(--bg-subtle);
-    color: var(--text-main);
-    border-color: #94a3b8;
-    }
-
-    button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
-    }
-
-    @media (max-width: 768px) {
-    #reference-form {
-        width: 100%;
-    }
-    }
+    padding: 1.25rem;
+  }
+}
