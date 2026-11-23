@@ -1,33 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fi">
   <head>
     <meta charset="UTF-8" />
-    <script src="main.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lisää viite</title>
     <link rel="stylesheet" href="style.css" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Miniprojekti</title>
   </head>
-
   <body>
     <main>
-      <details id="reference-editor">
-        <summary>Lisää viite</summary>
-        <form id="reference-form" aria-label="Lisää viite">
-          <p>
-            <label for="author">Tekijä</label>
-            <input id="author" name="author" type="text" required />
-          </p>
-          <p>
-            <label for="title">Otsikko</label>
-            <input id="title" name="title" type="text" required />
-          </p>
-          <p>
-            <label for="year">Julkaisuvuosi</label>
-            <input id="year" name="year" type="number" min="1" max="9999" step="1" required />
-          </p>
+      <h3>Lisää viite</h3>
+      <form id="reference-form" aria-label="Lisää viite">
+        <fieldset>
+          <legend>Viitteen tiedot</legend>
+
+          <label for="author">Tekijä</label>
+          <input id="author" name="author" type="text" required />
+
+          <label for="title">Otsikko</label>
+          <input id="title" name="title" type="text" required />
+
+          <label for="year">Julkaisuvuosi</label>
+          <input id="year" name="year" type="number" value="2000" min="1900" max="2100" step="1" required />
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit">Lisää</button>
           <button type="reset">Tyhjennä</button>
-        </form>
-      </details>
+        </div>
+      </form>
     </main>
   </body>
 </html>
