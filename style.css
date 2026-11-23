@@ -1,0 +1,152 @@
+:root {
+    --bg-page: #f4f6f9;
+    --bg-card: #ffffff;
+    --bg-subtle: #f8fafc;
+    --text-main: #1e293b;
+    --text-muted: #475569;
+    --border-color: #cbd5e1;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --radius: 10px;
+    }
+
+    * {
+    box-sizing: border-box;
+    }
+
+    body {
+    margin: 0;
+    padding: 2rem 1rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.5;
+    }
+
+    main {
+    max-width: 960px;
+    margin: 0 auto;
+    }
+
+    h3 {
+    margin: 0 0 1rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    }
+
+    #reference-form {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    width: 50vw;
+    padding: 1.5rem;
+    }
+
+    fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: var(--bg-subtle);
+    padding: 1.15rem 1.25rem 1.35rem;
+    margin: 0 0 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    }
+
+    legend {
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    }
+
+    label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-top: 0.4rem;
+    }
+
+    label:first-of-type {
+    margin-top: 0;
+    }
+
+    input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;;
+    font-family: inherit;
+    color: var(--text-main);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:hover {
+    border-color: #94a3b8;
+    }
+
+    input:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+    }
+
+    input[type="number"] {
+    max-width: 180px;
+    }
+
+    .form-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    }
+
+    button {
+    padding: 0.6rem 1.15rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+    transform: translateY(1px);
+    }
+
+    button[type="submit"] {
+    background-color: var(--accent);
+    color: white;
+    border: 1px solid var(--accent);
+    }
+
+    button[type="submit"]:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    }
+
+    button[type="reset"] {
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    }
+
+    button[type="reset"]:hover {
+    background-color: var(--bg-subtle);
+    color: var(--text-main);
+    border-color: #94a3b8;
+    }
+
+    button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+
+    @media (max-width: 768px) {
+    #reference-form {
+        width: 100%;
+    }
+    }
