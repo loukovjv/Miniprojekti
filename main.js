@@ -4,6 +4,7 @@ const author = form.elements.namedItem("author");
 const title = form.elements.namedItem("title");
 const year = form.elements.namedItem("year");
 const message = document.querySelector("#message");
+//moi
 
 // Data structure for saving references
 const references = JSON.parse(
