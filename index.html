@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fi">
   <head>
@@ -12,21 +13,46 @@
     <main>
       <details id="reference-editor">
         <summary>Lisää viite</summary>
+
         <form id="reference-form" aria-label="Lisää viite">
           <p>
             <label for="author">Tekijä</label>
-            <input id="author" name="author" type="text" required />
+            <input
+              id="author"
+              name="author"
+              type="text"
+              required
+            />
           </p>
+
           <p>
             <label for="title">Otsikko</label>
-            <input id="title" name="title" type="text" required />
+            <input
+              id="title"
+              name="title"
+              type="text"
+              required
+            />
           </p>
+
           <p>
             <label for="year">Julkaisuvuosi</label>
-            <input id="year" name="year" type="number" min="1" max="9999" step="1" required />
+            <input
+              id="year"
+              name="year"
+              type="number"
+              min="1"
+              max="9999"
+              step="1"
+              required
+            />
           </p>
+
+          <button type="submit">Tallenna viite</button>
           <button type="reset">Tyhjennä</button>
         </form>
+
+        <p id="message" role="status" aria-live="polite"></p>
       </details>
     </main>
   </body>
