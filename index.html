@@ -1,35 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lisää viite</title>
+    <script type="module" src="main.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Miniprojekti</title>
   </head>
+
   <body>
     <main>
-      <h3>Lisää viite</h3>
-      <form id="reference-form" aria-label="Lisää viite">
-        <fieldset>
-          <legend>Viitteen tiedot</legend>
+      <details id="reference-editor">
+        <summary>Lisää viite</summary>
 
-          <label for="author">Tekijä</label>
-          <input id="author" name="author" type="text" required />
+        <form id="reference-form" aria-label="Lisää viite">
+          <p>
+            <label for="author">Tekijä</label>
+            <input
+              id="author"
+              name="author"
+              type="text"
+              required
+            />
+          </p>
 
-          <label for="title">Otsikko</label>
-          <input id="title" name="title" type="text" required />
+          <p>
+            <label for="title">Otsikko</label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              required
+            />
+          </p>
 
-          <label for="year">Julkaisuvuosi</label>
-          <input id="year" name="year" type="number" value="2000" min="1900" max="2100" step="1" required />
-        </fieldset>
+          <p>
+            <label for="year">Julkaisuvuosi</label>
+            <input
+              id="year"
+              name="year"
+              type="number"
+              min="1"
+              max="9999"
+              step="1"
+              required
+            />
+          </p>
 
-        <div class="form-actions">
-          <button type="submit">Lisää</button>
+          <button type="submit">Tallenna viite</button>
           <button type="reset">Tyhjennä</button>
-        </div>
-      </form>
+        </form>
+
+        <p id="message" role="status" aria-live="polite"></p>
+      </details>
     </main>
   </body>
 </html>
-
-// moi
