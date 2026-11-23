@@ -10,3 +10,19 @@ https://users.jyu.fi/~loukovjv/miniprojekti/index.html
 
 Linkki lisenssiin:
 [MIT-lisenssi](LICENSE)
+
+# Definition of Done							
+User Story voidaan merkitä valmiiksi, kun seuraavat ehdot täyttyvät:							
+							
+- User Storylle on määritelty selkeät hyväksymiskriteerit.							
+- Kaikki hyväksymiskriteerit täyttyvät.							
+- Sprintistä 2 alkaen hyväksymiskriteerit on dokumentoitu Robot Frameworkin syntaksilla ja toteutettu automaattisiksi testeiksi.							
+- Toteutetulle sovelluslogiikalle on kirjoitettu tarkoituksenmukaiset automaattiset testit.							
+- Kaikki automaattiset testit menevät läpi.							
+- GitHub Actionsin CI-tarkistukset onnistuvat.							
+- JavaScript-koodi noudattaa ryhmän sopimia ESLint-sääntöjä.							
+- Koodi on selkeästi nimetty ja noudattaa sovittua arkkitehtuuria.							
+- Vähintään yksi toinen ryhmäläinen on katselmoinut toteutuksen.							
+- Muutokset on yhdistetty projektin päähaaraan.							
+- Ohjelmisto toimii muutosten jälkeen ja toiminnallisuus voidaan esitellä asiakkaalle.							
+- Dokumentaatio on päivitetty tarvittaessa.							
