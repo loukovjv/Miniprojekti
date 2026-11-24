@@ -9,7 +9,14 @@ const message = document.querySelector("#message");
 const referenceList = document.querySelector("#reference-list");
 const emptyMessage = document.querySelector("#empty-reference-message");
 
-// Data structure for saving references
+/**
+ * @typedef {Object} Reference
+ * @property {string} author
+ * @property {string} title
+ * @property {number} year
+ */
+
+/** @type {Reference[]} */
 let references = [];
 
 try {
@@ -21,6 +28,11 @@ try {
     references = [];
 }
 
+/**
+ * Renders all saved references as a sorted APA 7 reference list.
+ *
+ * @returns {void}
+ */
 function renderReferences() {
     referenceList.replaceChildren();
 
@@ -45,14 +57,14 @@ function renderReferences() {
 
 renderReferences();
 
-// Focus author field when form opens
+/** Focuses the author field when the editor opens. */
 editor.addEventListener("toggle", () => {
     if (editor.open) {
         author.focus();
     }
 });
 
-// Focus author field when form is reset
+/** Focuses the author field after the form is reset. */
 form.addEventListener("reset", () => {
     author.focus();
 });
