@@ -5,7 +5,8 @@ import assert from "node:assert/strict";
 import {
     validateReference,
     isDuplicate,
-    addReference
+    addReference,
+    formatReference
 } from "../referenceLogic.js";
 
 test("Valid reference is accepted", () => {
@@ -110,4 +111,15 @@ test("Duplicate reference is not added", () => {
     );
 
     assert.equal(references.length, 1);
+});
+
+test("Reference is formatted in APA 7 style", () => {
+    assert.equal(
+        formatReference({
+            author: "Matti Meikalainen",
+            title: "JavaScript",
+            year: 2024
+        }),
+        "Matti Meikalainen. (2024). JavaScript."
+    );
 });

@@ -10,7 +10,7 @@
 
   <body>
     <main>
-      <div id="reference-editor">
+      <section id="reference-editor">
         <h1>Lisää viite</h1>
 
         <form id="reference-form" aria-label="Lisää viite">
@@ -53,7 +53,13 @@
         </form>
 
         <p id="message" role="status" aria-live="polite"></p>
-      </div>
+      </section>
+
+      <section id="reference-list-section" aria-labelledby="reference-list-heading">
+        <h1 id="reference-list-heading">Tallennetut viitteet</h1>
+        <p id="empty-reference-message">Tallennettuja viitteitä ei ole.</p>
+        <ul id="reference-list"></ul>
+      </section>
     </main>
   </body>
 </html>

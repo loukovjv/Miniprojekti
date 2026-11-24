@@ -48,3 +48,7 @@ export function addReference(references, newReference) {
 
     return true;
 }
+
+export function formatReference(reference) {
+    return `${reference.author}. (${reference.year}). ${reference.title}.`;
+}
