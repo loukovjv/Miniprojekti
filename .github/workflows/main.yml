@@ -19,3 +19,35 @@ jobs:
 
       - name: Run tests
         run: npm test -- tests/*.test.js
+
+  acceptance:
+    name: Robot Framework acceptance tests
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.playwright
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Robot Framework dependencies
+        run: python -m pip install -r tests/acceptance/requirements.txt
+
+      - name: Install Chromium and system dependencies
+        run: rfbrowser install --with-deps --only-shell chromium
+
+      - name: Run Robot Framework tests
+        run: python tests/acceptance/run.py
+
+      - name: Upload Robot Framework results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results
+          path: robot-results/
+          if-no-files-found: ignore
