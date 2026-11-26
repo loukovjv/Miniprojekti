@@ -1,16 +1,23 @@
-import { addReference } from "./referenceLogic.js";
+import {
+    addReference,
+    ensureReferenceIds,
+    updateReference
+} from "./referenceLogic.js";
 
 const editor = document.querySelector("#reference-editor");
 const form = document.querySelector("#reference-form");
 const author = form.elements.namedItem("author");
 const title = form.elements.namedItem("title");
 const year = form.elements.namedItem("year");
+const formHeader = document.querySelector("#reference-editor > h1");
+const submitButton = document.querySelector("#reference-form > button");
 const message = document.querySelector("#message");
 const referenceList = document.querySelector("#reference-list");
 const emptyMessage = document.querySelector("#empty-reference-message");
 const editButton = document.querySelector("#edit")
 
 let editModeOn = false;
+let editingReferenceId = null;
 
 /** @type {Reference[]} */
 let references = [];
@@ -22,6 +29,10 @@ try {
     }
 } catch {
     references = [];
+}
+
+if (ensureReferenceIds(references)) {
+    localStorage.setItem("references", JSON.stringify(references));
 }
 
 /**
@@ -98,6 +109,18 @@ function renderReferencesEditMode() {
 
         item.append(link, deleteButton);
         referenceList.append(item);
+
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            author.value = reference.author;
+            title.value = reference.title;
+            year.value = reference.year;
+            editingReferenceId = reference.id;
+
+            formHeader.textContent = "Muokkaa viitettä";
+            submitButton.textContent = "Tallenna muutokset";
+        })
     }
 
     emptyMessage.hidden = sortedReferences.length !== 0;
@@ -114,6 +137,9 @@ editor.addEventListener("toggle", () => {
 
 /** Focuses the author field after the form is reset. */
 form.addEventListener("reset", () => {
+    editingReferenceId = null;
+    formHeader.textContent = "Lisää viite";
+    submitButton.textContent = "Tallenna viite";
     author.focus();
 });
 
@@ -126,16 +152,27 @@ form.addEventListener("submit", (event) => {
         year: year.value
     };
 
-    if (!addReference(references, reference)) {
+    const isEditing = editingReferenceId !== null;
+    const saved = isEditing
+        ? updateReference(references, editingReferenceId, reference)
+        : addReference(references, reference);
+
+    if (!saved) {
         message.textContent =
             "Tarkista lomakkeen tiedot tai viite on jo tallennettu.";
         return;
     }
 
     localStorage.setItem("references", JSON.stringify(references));
-    renderReferences();
+    if (editModeOn) {
+        renderReferencesEditMode();
+    } else {
+        renderReferences();
+    }
 
-    message.textContent = "Viite tallennettu onnistuneesti!";
+    message.textContent = isEditing
+        ? "Viite päivitetty onnistuneesti!"
+        : "Viite tallennettu onnistuneesti!";
     form.reset();
 });
 
