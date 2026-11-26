@@ -14,7 +14,7 @@ const submitButton = document.querySelector("#reference-form > button");
 const message = document.querySelector("#message");
 const referenceList = document.querySelector("#reference-list");
 const emptyMessage = document.querySelector("#empty-reference-message");
-const editButton = document.querySelector("#edit")
+const editButton = document.querySelector("#edit");
 
 let editModeOn = false;
 let editingReferenceId = null;
@@ -42,7 +42,6 @@ if (ensureReferenceIds(references)) {
  */
 function renderReferences() {
     referenceList.replaceChildren();
-    const editButton = document.getElementById("edit");
     editButton.textContent = "Muokkaustila";
 
     const sortedReferences = [...references].sort((first, second) =>
@@ -71,7 +70,6 @@ function renderReferences() {
  */
 function renderReferencesEditMode() {
     referenceList.replaceChildren();
-    const editButton = document.getElementById("edit");
     editButton.textContent = "Pois muokkaustilasta";
 
     const sortedReferences = [...references].sort((first, second) =>
@@ -81,6 +79,7 @@ function renderReferencesEditMode() {
     for (const reference of sortedReferences) {
         const item = document.createElement("li");
         item.className = "rivi";
+
         const link = document.createElement("a");
         link.href = "#";
         const authorText = document.createTextNode(
@@ -92,7 +91,7 @@ function renderReferencesEditMode() {
         link.append(authorText, titleText, ".");
         link.addEventListener("click", (event) => {
             event.preventDefault();
-            // TODO: Käsittele viitteen klikkaus (esim. avaa muokattavaksi)
+            setFormMode(true, reference);
         });
 
         const deleteButton = document.createElement("button");
@@ -103,30 +102,48 @@ function renderReferencesEditMode() {
             const index = references.indexOf(reference);
             if (index !== -1) {
                 references.splice(index, 1);
+                localStorage.setItem("references", JSON.stringify(references));
+                message.textContent = `Viite (${reference.author}) poistettu.`;
+            }
+            if (editingReferenceId === reference.id) {
+                setFormMode(false);
             }
             renderReferencesEditMode();
         });
 
         item.append(link, deleteButton);
         referenceList.append(item);
-
-        link.addEventListener("click", (event) => {
-            event.preventDefault();
-
-            author.value = reference.author;
-            title.value = reference.title;
-            year.value = reference.year;
-            editingReferenceId = reference.id;
-
-            formHeader.textContent = "Muokkaa viitettä";
-            submitButton.textContent = "Tallenna muutokset";
-        })
     }
 
     emptyMessage.hidden = sortedReferences.length !== 0;
 }
 
+/**
+ * Updates the reference form state for creating a new or editing an existing reference.
+ *
+ * @param {boolean} isEditing
+ * @param {Reference | null} [reference]
+ * @returns {void}
+ */
+function setFormMode(isEditing, reference = null) {
+    if (isEditing && reference) {
+        author.value = reference.author;
+        title.value = reference.title;
+        year.value = reference.year;
+        editingReferenceId = reference.id;
+        formHeader.textContent = "Muokkaa viitettä";
+        submitButton.textContent = "Tallenna muutokset";
+        return;
+    }
+
+    editingReferenceId = null;
+    formHeader.textContent = "Uusi viite";
+    submitButton.textContent = "Tallenna viite";
+    form.reset();
+}
+
 renderReferences();
+setFormMode(false);
 
 /** Focuses the author field when the editor opens. */
 editor.addEventListener("toggle", () => {
@@ -138,7 +155,7 @@ editor.addEventListener("toggle", () => {
 /** Focuses the author field after the form is reset. */
 form.addEventListener("reset", () => {
     editingReferenceId = null;
-    formHeader.textContent = "Lisää viite";
+    formHeader.textContent = "Uusi viite";
     submitButton.textContent = "Tallenna viite";
     author.focus();
 });
@@ -173,20 +190,21 @@ form.addEventListener("submit", (event) => {
     message.textContent = isEditing
         ? "Viite päivitetty onnistuneesti!"
         : "Viite tallennettu onnistuneesti!";
-    form.reset();
+    setFormMode(false);
 });
 
 editButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    if (editModeOn === false){
-        renderReferencesEditMode();
+    if (!editModeOn) {
         editModeOn = true;
+        renderReferencesEditMode();
+        formHeader.textContent = "Muokkaa viitettä";
+        submitButton.textContent = "Tallenna muutokset";
         return;
     }
-    if (editModeOn){
-        renderReferences();
-        editModeOn = false;
-        return;
-    }
-})
+
+    editModeOn = false;
+    renderReferences();
+    setFormMode(false);
+});
