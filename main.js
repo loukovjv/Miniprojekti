@@ -31,6 +31,8 @@ try {
  */
 function renderReferences() {
     referenceList.replaceChildren();
+    const editButton = document.getElementById("edit");
+    editButton.textContent = "Muokkaustila";
 
     const sortedReferences = [...references].sort((first, second) =>
         first.author.localeCompare(second.author, "fi")
@@ -58,6 +60,8 @@ function renderReferences() {
  */
 function renderReferencesEditMode() {
     referenceList.replaceChildren();
+    const editButton = document.getElementById("edit");
+    editButton.textContent = "Pois muokkaustilasta";
 
     const sortedReferences = [...references].sort((first, second) =>
         first.author.localeCompare(second.author, "fi")
@@ -65,6 +69,7 @@ function renderReferencesEditMode() {
 
     for (const reference of sortedReferences) {
         const item = document.createElement("li");
+        item.className = "rivi";
         const link = document.createElement("a");
         link.href = "#";
         const authorText = document.createTextNode(
@@ -74,7 +79,24 @@ function renderReferencesEditMode() {
         titleText.textContent = reference.title;
 
         link.append(authorText, titleText, ".");
-        item.appendChild(link);
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            // TODO: Käsittele viitteen klikkaus (esim. avaa muokattavaksi)
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Poista";
+        deleteButton.id = "delete";
+        deleteButton.addEventListener("click", () => {
+            const index = references.indexOf(reference);
+            if (index !== -1) {
+                references.splice(index, 1);
+            }
+            renderReferencesEditMode();
+        });
+
+        item.append(link, deleteButton);
         referenceList.append(item);
     }
 
