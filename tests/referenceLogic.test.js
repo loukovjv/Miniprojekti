@@ -6,6 +6,8 @@ import {
     validateReference,
     isDuplicate,
     addReference,
+    ensureReferenceIds,
+    updateReference,
     formatReference
 } from "../referenceLogic.js";
 
@@ -94,6 +96,7 @@ test("Valid reference is added", () => {
     );
 
     assert.equal(references.length, 1);
+    assert.equal(typeof references[0].id, "string");
 });
 
 test("Duplicate reference is not added", () => {
@@ -111,6 +114,65 @@ test("Duplicate reference is not added", () => {
     );
 
     assert.equal(references.length, 1);
+});
+
+test("Existing references receive IDs while unique IDs are preserved", () => {
+    const references = [
+        { author: "Matti", title: "JavaScript", year: 2024 },
+        { id: "kept-id", author: "Liisa", title: "Testing", year: 2023 },
+        { id: "kept-id", author: "Pekka", title: "Design", year: 2022 }
+    ];
+
+    assert.equal(ensureReferenceIds(references), true);
+    assert.equal(typeof references[0].id, "string");
+    assert.equal(references[1].id, "kept-id");
+    assert.equal(new Set(references.map(reference => reference.id)).size, 3);
+    assert.equal(ensureReferenceIds(references), false);
+});
+
+test("Reference is updated in place by ID", () => {
+    const reference = {
+        id: "reference-id",
+        author: "Matti",
+        title: "JavaScript",
+        year: 2024
+    };
+    const references = [reference];
+
+    assert.equal(
+        updateReference(references, "reference-id", {
+            author: "Liisa",
+            title: "Testing",
+            year: "2023"
+        }),
+        true
+    );
+
+    assert.equal(references[0], reference);
+    assert.deepEqual(reference, {
+        id: "reference-id",
+        author: "Liisa",
+        title: "Testing",
+        year: 2023
+    });
+});
+
+test("Duplicate reference is not updated", () => {
+    const references = [
+        { id: "first", author: "Matti", title: "JavaScript", year: 2024 },
+        { id: "second", author: "Liisa", title: "Testing", year: 2023 }
+    ];
+    const original = { ...references[0] };
+
+    assert.equal(
+        updateReference(references, "first", {
+            author: "Liisa",
+            title: "Testing",
+            year: "2023"
+        }),
+        false
+    );
+    assert.deepEqual(references[0], original);
 });
 
 test("Reference is formatted in APA 7 style", () => {
