@@ -1,19 +1,5 @@
 
 /**
- * @typedef {Object} Reference
- * @property {string} author
- * @property {string} title
- * @property {number} year
- */
-
-/**
- * @typedef {Object} ReferenceInput
- * @property {string} author
- * @property {string} title
- * @property {string | number} year
- */
-
-/**
  * Checks whether the reference fields contain valid values.
  *
  * @param {string} author

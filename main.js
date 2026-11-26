@@ -8,13 +8,9 @@ const year = form.elements.namedItem("year");
 const message = document.querySelector("#message");
 const referenceList = document.querySelector("#reference-list");
 const emptyMessage = document.querySelector("#empty-reference-message");
+const editButton = document.querySelector("#edit")
 
-/**
- * @typedef {Object} Reference
- * @property {string} author
- * @property {string} title
- * @property {number} year
- */
+let editModeOn = false;
 
 /** @type {Reference[]} */
 let references = [];
@@ -49,6 +45,36 @@ function renderReferences() {
         titleText.textContent = reference.title;
 
         item.append(authorText, titleText, ".");
+        referenceList.append(item);
+    }
+
+    emptyMessage.hidden = sortedReferences.length !== 0;
+}
+
+/**
+ * Renders all saved references as a sorted APA 7 reference list as clickable links.
+ *
+ * @returns {void}
+ */
+function renderReferencesEditMode() {
+    referenceList.replaceChildren();
+
+    const sortedReferences = [...references].sort((first, second) =>
+        first.author.localeCompare(second.author, "fi")
+    );
+
+    for (const reference of sortedReferences) {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "#";
+        const authorText = document.createTextNode(
+            `${reference.author}. (${reference.year}). `
+        );
+        const titleText = document.createElement("em");
+        titleText.textContent = reference.title;
+
+        link.append(authorText, titleText, ".");
+        item.appendChild(link);
         referenceList.append(item);
     }
 
@@ -91,3 +117,17 @@ form.addEventListener("submit", (event) => {
     form.reset();
 });
 
+editButton.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (editModeOn === false){
+        renderReferencesEditMode();
+        editModeOn = true;
+        return;
+    }
+    if (editModeOn){
+        renderReferences();
+        editModeOn = false;
+        return;
+    }
+})
