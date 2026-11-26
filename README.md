@@ -26,3 +26,24 @@ User Story voidaan merkitä valmiiksi, kun seuraavat ehdot täyttyvät:
 - Muutokset on yhdistetty projektin päähaaraan.							
 - Ohjelmisto toimii muutosten jälkeen ja toiminnallisuus voidaan esitellä asiakkaalle.							
 - Dokumentaatio on päivitetty tarvittaessa.							
+
+## Hyväksymistestit
+
+Robot Frameworkin selaintestit ovat kansiossa `tests/acceptance`. Niiden ajoskripti käynnistää paikallisen palvelimen ja sulkee sen ajon päättyessä.
+
+Asenna Python 3.10 tai uudempi ja aja projektikansiossa PowerShellillä:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r tests\acceptance\requirements.txt
+$env:PLAYWRIGHT_BROWSERS_PATH = Join-Path (Get-Location).Path ".playwright"
+.\.venv\Scripts\rfbrowser.exe install chromium
+```
+
+Aja testit:
+
+```powershell
+.\.venv\Scripts\python.exe tests\acceptance\run.py
+```
+
+Tarkempi raportti on tiedostossa `robot-results/log.html`. JavaScriptin yksikkötestit ajetaan edelleen komennolla `npm test`.
