@@ -216,6 +216,11 @@ main {
   outline-offset: 2px;
 }
 
+a, a:visited {
+  text-decoration: none;
+  color: black;
+}
+
 @media (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
