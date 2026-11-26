@@ -1,19 +1,5 @@
 
 /**
- * @typedef {Object} Reference
- * @property {string} author
- * @property {string} title
- * @property {number} year
- */
-
-/**
- * @typedef {Object} ReferenceInput
- * @property {string} author
- * @property {string} title
- * @property {string | number} year
- */
-
-/**
  * Checks whether the reference fields contain valid values.
  *
  * @param {string} author
@@ -57,6 +43,32 @@ export function isDuplicate(references, newReference) {
 }
 
 /**
+ * Assigns IDs to references that do not have a unique ID.
+ *
+ * @param {Reference[]} references
+ * @returns {boolean} True when at least one ID was assigned.
+ */
+export function ensureReferenceIds(references) {
+    const ids = new Set();
+    let changed = false;
+
+    for (const reference of references) {
+        if (
+            typeof reference.id !== "string" ||
+            reference.id.trim() === "" ||
+            ids.has(reference.id)
+        ) {
+            reference.id = globalThis.crypto.randomUUID();
+            changed = true;
+        }
+
+        ids.add(reference.id);
+    }
+
+    return changed;
+}
+
+/**
  * Validates and adds a reference to the collection.
  *
  * @param {Reference[]} references
@@ -77,9 +89,47 @@ export function addReference(references, newReference) {
     }
 
     references.push({
+        id: globalThis.crypto.randomUUID(),
         author: newReference.author.trim(),
         title: newReference.title.trim(),
         year: Number(newReference.year)
+    });
+
+    return true;
+}
+
+/**
+ * Validates and updates a reference without changing its ID or array position.
+ *
+ * @param {Reference[]} references
+ * @param {string} id
+ * @param {ReferenceInput} updatedReference
+ * @returns {boolean} True when the reference was updated.
+ */
+export function updateReference(references, id, updatedReference) {
+    if (
+        !validateReference(
+            updatedReference.author,
+            updatedReference.title,
+            updatedReference.year
+        )
+    ) {
+        return false;
+    }
+
+    const reference = references.find(item => item.id === id);
+    const duplicateExists = isDuplicate(
+        references.filter(item => item.id !== id),
+        updatedReference
+    );
+    if (!reference || duplicateExists) {
+        return false;
+    }
+
+    Object.assign(reference, {
+        author: updatedReference.author.trim(),
+        title: updatedReference.title.trim(),
+        year: Number(updatedReference.year)
     });
 
     return true;
